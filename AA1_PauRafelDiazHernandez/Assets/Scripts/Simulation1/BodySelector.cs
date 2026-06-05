@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class BodySelector : MonoBehaviour
 {
@@ -14,9 +15,10 @@ public class BodySelector : MonoBehaviour
 
     private void Update()
     {
-        if (!Input.GetMouseButtonDown(0)) return;
+        if (!Mouse.current.leftButton.wasPressedThisFrame) return;
 
-        Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
+        Vector2 mousePos = Mouse.current.position.ReadValue();
+        Ray ray = _camera.ScreenPointToRay(mousePos);
 
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
