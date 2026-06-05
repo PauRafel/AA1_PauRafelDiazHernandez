@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class BallLauncher : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class BallLauncher : MonoBehaviour
     public int trajectorySteps = 30;
     public float trajectoryTimeStep = 0.05f;
 
-    private Vector3 _dragStart;
+    private Vector2 _dragStart;
     private bool _isDragging = false;
     private Camera _camera;
 
@@ -38,22 +39,23 @@ public class BallLauncher : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Mouse.current.leftButton.wasPressedThisFrame)
             OnDragStart();
-        else if (Input.GetMouseButton(0) && _isDragging)
+        else if (Mouse.current.leftButton.isPressed && _isDragging)
             OnDragging();
-        else if (Input.GetMouseButtonUp(0) && _isDragging)
+        else if (Mouse.current.leftButton.wasReleasedThisFrame && _isDragging)
             OnDragRelease();
     }
 
     private void OnDragStart()
     {
-        Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
+        Vector2 mousePos = Mouse.current.position.ReadValue();
+        Ray ray = _camera.ScreenPointToRay(mousePos);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             if (hit.collider.GetComponent<BallPhysics>() != null)
             {
-                _dragStart = Input.mousePosition;
+                _dragStart = mousePos;
                 _isDragging = true;
             }
         }
@@ -76,8 +78,9 @@ public class BallLauncher : MonoBehaviour
 
     private Vector3 CalculateLaunchForce()
     {
-        Vector3 dragDelta = _dragStart - Input.mousePosition;
-        dragDelta = Vector3.ClampMagnitude(dragDelta, maxLaunchForce);
+        Vector2 mousePos = Mouse.current.position.ReadValue();
+        Vector2 dragDelta = _dragStart - mousePos;
+        dragDelta = Vector2.ClampMagnitude(dragDelta, maxLaunchForce);
         return new Vector3(dragDelta.x, 0f, dragDelta.y);
     }
 
