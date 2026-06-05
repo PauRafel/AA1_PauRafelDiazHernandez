@@ -1593,6 +1593,7 @@ GameObject:
   m_Component:
   - component: {fileID: 829039188}
   - component: {fileID: 829039189}
+  - component: {fileID: 829039190}
   m_Layer: 0
   m_Name: GravitySimulator
   m_TagString: Untagged
@@ -1639,6 +1640,25 @@ MonoBehaviour:
   - {fileID: 681723452}
   - {fileID: 1377435175}
   - {fileID: 1551805245}
+--- !u!114 &829039190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 829039187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5d435dbe2e205743aa9d2e132bb4848, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OrbitStabilityChecker
+  bodiesToCheck:
+  - {fileID: 9533785}
+  - {fileID: 681723452}
+  - {fileID: 1377435175}
+  - {fileID: 1551805245}
+  maxDistanceFromSun: 50
+  checkInterval: 2
 --- !u!1 &890278693
 GameObject:
   m_ObjectHideFlags: 0
