@@ -1271,6 +1271,8 @@ GameObject:
   - component: {fileID: 811096445}
   - component: {fileID: 811096444}
   - component: {fileID: 811096443}
+  - component: {fileID: 811096447}
+  - component: {fileID: 811096446}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Untagged
@@ -1418,6 +1420,34 @@ MonoBehaviour:
   radius: 0.5
   velocity: {x: 0, y: 0, z: 0}
   angularVelocity: {x: 0, y: 0, z: 0}
+--- !u!114 &811096446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 811096438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76e53f755093aa0498ae6984441a3fad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallDataRecorder
+  ball: {fileID: 811096445}
+  recorder: {fileID: 811096447}
+  sampleInterval: 0.1
+--- !u!114 &811096447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 811096438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98b201df1bb6ed345aa551346584139b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PhysicsDataRecorder
+  maxSamples: 200
 --- !u!1 &838236356
 GameObject:
   m_ObjectHideFlags: 0
