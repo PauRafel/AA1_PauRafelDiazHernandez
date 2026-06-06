@@ -3,9 +3,15 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
+    public const string SCENE_MENU = "MainMenu";
     public const string SCENE_NEWTONIAN = "AA4_1_Newtonian";
     public const string SCENE_RIGIDBODY = "AA4_2_RigidBody";
     public const string SCENE_WAVES = "AA4_3_Waves";
+
+    public void LoadMainMenu()
+    {
+        SimulationManager.Instance.LoadScene(SCENE_MENU);
+    }
 
     public void LoadNewtonian()
     {
