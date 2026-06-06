@@ -1092,6 +1092,7 @@ GameObject:
   m_Component:
   - component: {fileID: 496202500}
   - component: {fileID: 496202499}
+  - component: {fileID: 496202501}
   m_Layer: 0
   m_Name: GraphManager
   m_TagString: Untagged
@@ -1134,6 +1135,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &496202501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 496202498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aac8f8620b3d89a42a8757cba4dc21b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GraphColorConfig
+  graphRenderer: {fileID: 291576063}
+  velocityColor: {r: 0, g: 1, b: 0, a: 1}
+  forceColor: {r: 1, g: 0, b: 0, a: 1}
+  displacementColor: {r: 0, g: 1, b: 1, a: 1}
 --- !u!1 &517000639
 GameObject:
   m_ObjectHideFlags: 0
