@@ -16,7 +16,14 @@ public class SimulationManager : MonoBehaviour
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        Time.timeScale = 1f;
+        _isPaused = false;
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            Instance = null;
     }
 
     public void PauseSimulation()
