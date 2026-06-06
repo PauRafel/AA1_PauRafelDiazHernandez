@@ -2,11 +2,14 @@ using UnityEngine;
 
 public class GravitySimulator : MonoBehaviour
 {
-    [Header("Gravitational Constant")]
-    public float G = 39.478f;
+    [Header("Config")]
+    public MagicNumbersConfig physicsConfig;
 
     [Header("Bodies")]
     public CelestialBody[] bodies;
+
+    private float G => physicsConfig != null ?
+        physicsConfig.gravitationalConstant : 39.478f;
 
     private void FixedUpdate()
     {
