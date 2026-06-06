@@ -14,7 +14,6 @@ public class WaveDataDisplay : MonoBehaviour
     public TMP_Text waveHeightLabel;
 
     private float _previousHeight;
-    private float _buoyancyForce;
 
     private void Update()
     {
@@ -27,13 +26,17 @@ public class WaveDataDisplay : MonoBehaviour
     private void UpdateBuoyData()
     {
         float currentHeight = buoy.transform.position.y;
-        float displacement = currentHeight - _previousHeight;
 
-        _buoyancyForce = buoy.waterDensity * 9.81f *
-                         Mathf.Max(0f, buoy.objectVolume * displacement);
+        float waterDensity = buoy.physicsConfig != null ?
+            buoy.physicsConfig.waterDensity : 1000f;
+        float gravity = buoy.physicsConfig != null ?
+            buoy.physicsConfig.earthGravity : 9.81f;
+
+        float displacement = Mathf.Max(0f, currentHeight - _previousHeight);
+        float buoyancyForce = waterDensity * gravity * buoy.objectVolume * displacement;
 
         buoyHeightLabel.text = $"Buoy Height: {currentHeight:F3} m";
-        buoyancyForceLabel.text = $"Buoyancy Force: {_buoyancyForce:F3} N";
+        buoyancyForceLabel.text = $"Buoyancy Force: {buoyancyForce:F3} N";
 
         _previousHeight = currentHeight;
     }

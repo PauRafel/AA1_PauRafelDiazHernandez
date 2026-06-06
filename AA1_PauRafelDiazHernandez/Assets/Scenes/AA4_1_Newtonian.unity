@@ -2552,7 +2552,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d0800901f4e9bf4ba9a21402801a25b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GravitySimulator
-  G: 39.478
+  physicsConfig: {fileID: 11400000, guid: ef3119e4abb07374b8914b6722745f04, type: 2}
   bodies:
   - {fileID: 1592967620}
   - {fileID: 9533785}

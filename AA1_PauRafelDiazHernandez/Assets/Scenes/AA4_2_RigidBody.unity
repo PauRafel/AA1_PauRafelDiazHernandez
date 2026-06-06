@@ -1924,6 +1924,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TerrainZone
   terrainType: 1
+  physicsConfig: {fileID: 11400000, guid: ef3119e4abb07374b8914b6722745f04, type: 2}
 --- !u!65 &612874509
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2561,8 +2562,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9eb26bf683129b4f88503524453bcd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CollisionHandler
-  elasticRestitution: 0.8
-  inelasticRestitution: 0.2
+  physicsConfig: {fileID: 11400000, guid: ef3119e4abb07374b8914b6722745f04, type: 2}
 --- !u!114 &811096445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3804,6 +3804,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TerrainZone
   terrainType: 0
+  physicsConfig: {fileID: 11400000, guid: ef3119e4abb07374b8914b6722745f04, type: 2}
 --- !u!65 &1141290098
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6427,6 +6428,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TerrainZone
   terrainType: 2
+  physicsConfig: {fileID: 11400000, guid: ef3119e4abb07374b8914b6722745f04, type: 2}
 --- !u!65 &2108088206
 BoxCollider:
   m_ObjectHideFlags: 0

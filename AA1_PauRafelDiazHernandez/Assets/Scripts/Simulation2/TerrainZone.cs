@@ -1,5 +1,12 @@
 using UnityEngine;
 
+public enum TerrainType
+{
+    Grass,
+    Ice,
+    Sand
+}
+
 public class TerrainZone : MonoBehaviour
 {
     [Header("Terrain Properties")]
@@ -22,17 +29,6 @@ public class TerrainZone : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        Renderer rend = GetComponent<Renderer>();
-        if (rend != null)
-        {
-            Material mat = new Material(Shader.Find("Universal Render Pipeline/Lit"));
-            mat.color = ZoneColor;
-            rend.material = mat;
-        }
-    }
-
     public Color ZoneColor
     {
         get
@@ -44,6 +40,17 @@ public class TerrainZone : MonoBehaviour
                 case TerrainType.Sand: return new Color(0.9f, 0.8f, 0.4f);
                 default: return Color.white;
             }
+        }
+    }
+
+    private void Start()
+    {
+        Renderer rend = GetComponent<Renderer>();
+        if (rend != null)
+        {
+            Material mat = new Material(Shader.Find("Universal Render Pipeline/Lit"));
+            mat.color = ZoneColor;
+            rend.material = mat;
         }
     }
 

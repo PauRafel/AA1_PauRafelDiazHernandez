@@ -993,7 +993,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7c14757c5fad9f4abaa82ce8fc6b4df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuoyancyObject
-  waterDensity: 1000
+  physicsConfig: {fileID: 11400000, guid: ef3119e4abb07374b8914b6722745f04, type: 2}
   objectVolume: 0.1
   objectMass: 5
   damping: 0.8
