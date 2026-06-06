@@ -2,20 +2,14 @@ using UnityEngine;
 
 public class CollisionHandler : MonoBehaviour
 {
-    [Header("Restitution Coefficients")]
-    public float elasticRestitution = 0.8f;
-    public float inelasticRestitution = 0.2f;
+    [Header("Config")]
+    public MagicNumbersConfig physicsConfig;
 
     private BallPhysics _ball;
 
     private void Awake()
     {
         _ball = GetComponent<BallPhysics>();
-    }
-
-    private void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        HandleCollision(hit.normal, hit.gameObject);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -29,7 +23,6 @@ public class CollisionHandler : MonoBehaviour
         if (_ball == null) return;
 
         float restitution = GetRestitution(other);
-
         Vector3 reflected = Vector3.Reflect(_ball.velocity, normal);
         _ball.velocity = reflected * restitution;
     }
@@ -37,9 +30,10 @@ public class CollisionHandler : MonoBehaviour
     private float GetRestitution(GameObject other)
     {
         ObstacleProperties props = other.GetComponent<ObstacleProperties>();
-        if (props != null)
-            return props.isElastic ? elasticRestitution : inelasticRestitution;
+        if (props == null) return physicsConfig != null ?
+            physicsConfig.elasticRestitution : 0.8f;
 
-        return elasticRestitution;
+        return props.isElastic ? physicsConfig.elasticRestitution
+                               : physicsConfig.inelasticRestitution;
     }
 }

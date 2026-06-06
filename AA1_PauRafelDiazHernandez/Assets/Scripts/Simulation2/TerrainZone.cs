@@ -1,28 +1,35 @@
 using UnityEngine;
 
-public enum TerrainType
-{
-    Grass,
-    Ice,
-    Sand
-}
-
 public class TerrainZone : MonoBehaviour
 {
     [Header("Terrain Properties")]
     public TerrainType terrainType = TerrainType.Grass;
+    public MagicNumbersConfig physicsConfig;
 
     public float FrictionCoefficient
     {
         get
         {
+            if (physicsConfig == null) return 0.4f;
+
             switch (terrainType)
             {
-                case TerrainType.Grass: return 0.4f;
-                case TerrainType.Ice: return 0.1f;
-                case TerrainType.Sand: return 0.6f;
-                default: return 0.4f;
+                case TerrainType.Grass: return physicsConfig.grassFriction;
+                case TerrainType.Ice: return physicsConfig.iceFriction;
+                case TerrainType.Sand: return physicsConfig.sandFriction;
+                default: return physicsConfig.grassFriction;
             }
+        }
+    }
+
+    private void Start()
+    {
+        Renderer rend = GetComponent<Renderer>();
+        if (rend != null)
+        {
+            Material mat = new Material(Shader.Find("Universal Render Pipeline/Lit"));
+            mat.color = ZoneColor;
+            rend.material = mat;
         }
     }
 
@@ -37,17 +44,6 @@ public class TerrainZone : MonoBehaviour
                 case TerrainType.Sand: return new Color(0.9f, 0.8f, 0.4f);
                 default: return Color.white;
             }
-        }
-    }
-
-    private void Start()
-    {
-        Renderer rend = GetComponent<Renderer>();
-        if (rend != null)
-        {
-            Material mat = new Material(Shader.Find("Universal Render Pipeline/Lit"));
-            mat.color = ZoneColor;
-            rend.material = mat;
         }
     }
 
