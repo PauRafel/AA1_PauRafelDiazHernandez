@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 public class FreeCameraController : MonoBehaviour
 {
@@ -23,6 +24,14 @@ public class FreeCameraController : MonoBehaviour
 
     private void Update()
     {
+        // No mover camara si el raton esta sobre la UI
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            return;
+        }
+
         HandleRotation();
         HandleMovement();
         HandleScroll();
@@ -73,6 +82,9 @@ public class FreeCameraController : MonoBehaviour
 
     private void HandleScroll()
     {
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+            return;
+
         float scroll = Mouse.current.scroll.ReadValue().y;
         if (Mathf.Abs(scroll) > 0.01f)
             transform.position += transform.forward * scroll * scrollSpeed * Time.deltaTime;
