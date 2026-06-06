@@ -39,11 +39,17 @@ public class BallPhysics : MonoBehaviour, IResettable
             return;
         }
 
-        float normalForce = mass * Mathf.Abs(Gravity);
+        float normalForce = mass * Mathf.Abs(Physics.gravity.y);
         float frictionMagnitude = frictionCoefficient * normalForce;
-        Vector3 frictionForce = -velocity.normalized * frictionMagnitude;
 
-        ApplyForce(frictionForce);
+        Vector3 horizontalVelocity = new Vector3(velocity.x, 0f, velocity.z);
+        if (horizontalVelocity.magnitude < 0.01f) return;
+
+        Vector3 frictionForce = -horizontalVelocity.normalized * frictionMagnitude;
+        Vector3 acceleration = frictionForce / mass;
+
+        velocity.x += acceleration.x * Time.fixedDeltaTime;
+        velocity.z += acceleration.z * Time.fixedDeltaTime;
     }
 
     public void ApplyAirResistance(float density, float dragCoefficient, float area)

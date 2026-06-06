@@ -45,7 +45,7 @@ public class PhysicsManager : MonoBehaviour, IResettable
 
         if (Physics.SphereCast(
             ball.transform.position,
-            ball.radius * 0.99f,
+            ball.radius * 1.00f,
             movement.normalized,
             out RaycastHit hit,
             moveDist,
