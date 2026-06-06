@@ -411,7 +411,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -2547,8 +2547,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BallLauncher
   ball: {fileID: 811096445}
   trajectoryLine: {fileID: 0}
-  maxLaunchForce: 20
-  sensitivity: 0.1
+  maxLaunchForce: 50
+  sensitivity: 1
   trajectorySteps: 30
   trajectoryTimeStep: 0.05
 --- !u!114 &811096444
