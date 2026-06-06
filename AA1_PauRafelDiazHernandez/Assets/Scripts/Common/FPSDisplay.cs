@@ -11,7 +11,6 @@ public class FPSDisplay : MonoBehaviour
 
     private float _timer = 0f;
     private int _frameCount = 0;
-    private float _fps = 0f;
 
     private void Update()
     {
@@ -20,11 +19,13 @@ public class FPSDisplay : MonoBehaviour
 
         if (_timer < updateInterval) return;
 
-        _fps = _frameCount / _timer;
+        float fps = _frameCount / _timer;
         _frameCount = 0;
         _timer = 0f;
 
         if (fpsLabel != null)
-            fpsLabel.text = $"FPS: {_fps:F0}";
+            fpsLabel.text = $"FPS: {fps:F0}";
+        else
+            Debug.LogWarning("[FPSDisplay] fpsLabel not assigned!");
     }
 }

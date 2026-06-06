@@ -8,6 +8,7 @@ public class CelestialBody : MonoBehaviour, IResettable
 
     [HideInInspector] public Vector3 velocity;
     [HideInInspector] public Vector3 currentForce;
+    [HideInInspector] public Vector3 lastForce;
 
     private Vector3 _initialPosition;
 
@@ -24,6 +25,7 @@ public class CelestialBody : MonoBehaviour, IResettable
 
     public void UpdatePosition(float deltaTime)
     {
+        lastForce = currentForce;
         Vector3 acceleration = currentForce / mass;
         velocity += acceleration * deltaTime;
         transform.position += velocity * deltaTime;
@@ -35,5 +37,6 @@ public class CelestialBody : MonoBehaviour, IResettable
         transform.position = _initialPosition;
         velocity = initialVelocity;
         currentForce = Vector3.zero;
+        lastForce = Vector3.zero;
     }
 }
