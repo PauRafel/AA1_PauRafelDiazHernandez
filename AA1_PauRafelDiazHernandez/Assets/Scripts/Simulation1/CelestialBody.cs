@@ -25,7 +25,6 @@ public class CelestialBody : MonoBehaviour, IResettable
 
     public void UpdatePosition(float deltaTime)
     {
-        lastForce = currentForce;
         Vector3 acceleration = currentForce / mass;
         velocity += acceleration * deltaTime;
         transform.position += velocity * deltaTime;

@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80fb5a0707f1ea94c961c4e9c71295f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ForceVectorVisualizer
-  forceScale: 0.01
+  forceScale: 500
   forceColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &9533784
 MonoBehaviour:
@@ -2205,7 +2205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80fb5a0707f1ea94c961c4e9c71295f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ForceVectorVisualizer
-  forceScale: 0.01
+  forceScale: 500
   forceColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &681723451
 MonoBehaviour:
@@ -2847,7 +2847,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -4057,7 +4057,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80fb5a0707f1ea94c961c4e9c71295f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ForceVectorVisualizer
-  forceScale: 0.01
+  forceScale: 500
   forceColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &1377435174
 MonoBehaviour:
@@ -4621,7 +4621,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80fb5a0707f1ea94c961c4e9c71295f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ForceVectorVisualizer
-  forceScale: 0.01
+  forceScale: 500
   forceColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &1551805244
 MonoBehaviour:
@@ -5057,7 +5057,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80fb5a0707f1ea94c961c4e9c71295f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ForceVectorVisualizer
-  forceScale: 0.01
+  forceScale: 500
   forceColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &1592967619
 MonoBehaviour:

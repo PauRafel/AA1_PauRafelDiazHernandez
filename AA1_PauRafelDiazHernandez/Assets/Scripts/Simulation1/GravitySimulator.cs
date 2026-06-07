@@ -22,6 +22,9 @@ public class GravitySimulator : MonoBehaviour
 
     private void CalculateForces()
     {
+        foreach (var body in bodies)
+            body.currentForce = Vector3.zero;
+
         for (int i = 0; i < bodies.Length; i++)
         {
             for (int j = i + 1; j < bodies.Length; j++)
@@ -41,6 +44,9 @@ public class GravitySimulator : MonoBehaviour
                 bodyB.AddForce(-force);
             }
         }
+
+        foreach (var body in bodies)
+            body.lastForce = body.currentForce;
     }
 
     private void UpdatePositions()
