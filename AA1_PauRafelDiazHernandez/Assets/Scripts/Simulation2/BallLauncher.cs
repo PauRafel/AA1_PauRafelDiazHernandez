@@ -8,11 +8,14 @@ public class BallLauncher : MonoBehaviour
     public LineRenderer trajectoryLine;
 
     [Header("Launch Settings")]
-    public float maxLaunchForce = 20f;
-    public int trajectorySteps = 30;
+    [Range(1f, 50f)]
+    public float maxLaunchForce = 15f;
+    [Range(0.01f, 1f)]
+    public float sensitivity = 0.1f;
+    public int trajectorySteps = 40;
     public float trajectoryTimeStep = 0.05f;
 
-    private Vector2 _dragStart;
+    private Vector3 _dragStartWorld;
     private bool _isDragging = false;
     private Camera _camera;
 
@@ -27,67 +30,83 @@ public class BallLauncher : MonoBehaviour
         if (trajectoryLine == null)
             trajectoryLine = gameObject.AddComponent<LineRenderer>();
 
-        trajectoryLine.startWidth = 0.05f;
+        trajectoryLine.startWidth = 0.08f;
         trajectoryLine.endWidth = 0.02f;
         trajectoryLine.positionCount = trajectorySteps;
         trajectoryLine.enabled = false;
-
-        Material mat = new Material(Shader.Find("Sprites/Default"));
-        mat.color = Color.yellow;
-        trajectoryLine.material = mat;
+        trajectoryLine.material = new Material(Shader.Find("Sprites/Default"));
+        trajectoryLine.material.color = Color.yellow;
     }
 
     private void Update()
     {
         if (Mouse.current.leftButton.wasPressedThisFrame)
-            OnDragStart();
-        else if (Mouse.current.leftButton.isPressed && _isDragging)
-            OnDragging();
-        else if (Mouse.current.leftButton.wasReleasedThisFrame && _isDragging)
-            OnDragRelease();
+            TryStartDrag();
+
+        if (_isDragging && Mouse.current.leftButton.isPressed)
+            UpdateDrag();
+
+        if (_isDragging && Mouse.current.leftButton.wasReleasedThisFrame)
+            ReleaseDrag();
     }
 
-    private void OnDragStart()
+    private void TryStartDrag()
     {
-        Vector2 mousePos = Mouse.current.position.ReadValue();
-        Ray ray = _camera.ScreenPointToRay(mousePos);
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        Vector2 screenPos = Mouse.current.position.ReadValue();
+        Ray ray = _camera.ScreenPointToRay(screenPos);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, 100f))
         {
-            if (hit.collider.GetComponent<BallPhysics>() != null)
+            if (hit.collider.gameObject == ball.gameObject)
             {
-                _dragStart = mousePos;
                 _isDragging = true;
+                _dragStartWorld = ball.transform.position;
             }
         }
     }
 
-    private void OnDragging()
+    private void UpdateDrag()
     {
-        Vector3 launchForce = CalculateLaunchForce();
-        DrawTrajectory(launchForce);
+        Vector3 force = GetCurrentForce();
         trajectoryLine.enabled = true;
+        DrawTrajectory(force);
     }
 
-    private void OnDragRelease()
+    private void ReleaseDrag()
     {
-        Vector3 launchForce = CalculateLaunchForce();
-        ball.ApplyForce(launchForce);
+        Vector3 force = GetCurrentForce();
         trajectoryLine.enabled = false;
         _isDragging = false;
+
+        ball.velocity = Vector3.zero;
+        ball.ApplyForce(force);
     }
 
-    private Vector3 CalculateLaunchForce()
+    private Vector3 GetCurrentForce()
     {
-        Vector2 mousePos = Mouse.current.position.ReadValue();
-        Vector2 dragDelta = _dragStart - mousePos;
-        dragDelta = Vector2.ClampMagnitude(dragDelta, maxLaunchForce);
-        return new Vector3(dragDelta.x, 0f, dragDelta.y);
+        Vector2 screenPos = Mouse.current.position.ReadValue();
+
+        Vector3 ballViewport = _camera.WorldToViewportPoint(ball.transform.position);
+        Vector3 mouseWorld = _camera.ViewportToWorldPoint(new Vector3(
+            screenPos.x / Screen.width,
+            screenPos.y / Screen.height,
+            ballViewport.z
+        ));
+
+        Vector3 delta = _dragStartWorld - mouseWorld;
+        delta.y = 0f;
+        delta = Vector3.ClampMagnitude(delta, maxLaunchForce);
+
+        Vector3 force = delta * (maxLaunchForce * sensitivity);
+        force.y = force.magnitude * 1.0f;
+
+        return force;
     }
 
     private void DrawTrajectory(Vector3 force)
     {
         Vector3 pos = ball.transform.position;
-        Vector3 vel = ball.velocity + (force / ball.mass) * trajectoryTimeStep;
+        Vector3 vel = force / ball.mass;
 
         for (int i = 0; i < trajectorySteps; i++)
         {
@@ -95,5 +114,11 @@ public class BallLauncher : MonoBehaviour
             vel.y += Physics.gravity.y * trajectoryTimeStep;
             pos += vel * trajectoryTimeStep;
         }
+    }
+
+    public void ResetLauncher()
+    {
+        _isDragging = false;
+        trajectoryLine.enabled = false;
     }
 }

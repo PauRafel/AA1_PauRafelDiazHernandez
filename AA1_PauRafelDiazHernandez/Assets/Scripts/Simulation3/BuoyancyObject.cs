@@ -2,8 +2,10 @@ using UnityEngine;
 
 public class BuoyancyObject : MonoBehaviour, IResettable
 {
+    [Header("Config")]
+    public MagicNumbersConfig physicsConfig;
+
     [Header("Buoyancy Properties")]
-    public float waterDensity = 1000f;
     public float objectVolume = 0.1f;
     public float objectMass = 5f;
     public float damping = 0.8f;
@@ -15,9 +17,13 @@ public class BuoyancyObject : MonoBehaviour, IResettable
     public GerstnerWave gerstnerWave;
     public SinusoidalWave sinusoidalWave;
 
+    private float WaterDensity => physicsConfig != null ?
+        physicsConfig.waterDensity : 1000f;
+    private float Gravity => physicsConfig != null ?
+        physicsConfig.earthGravity : 9.81f;
+
     private Vector3 _initialPosition;
     private Vector3 _velocity = Vector3.zero;
-    private const float Gravity = 9.81f;
 
     private void Start()
     {
@@ -31,7 +37,6 @@ public class BuoyancyObject : MonoBehaviour, IResettable
 
         float waterHeight = GetWaterHeight();
         float buoyancyForce = CalculateBuoyancy(waterHeight);
-
         ApplyPhysics(buoyancyForce);
     }
 
@@ -53,8 +58,7 @@ public class BuoyancyObject : MonoBehaviour, IResettable
     {
         float submergedDepth = Mathf.Max(0f, waterHeight - transform.position.y);
         float submergedVolume = Mathf.Min(submergedDepth * objectVolume, objectVolume);
-
-        return waterDensity * Gravity * submergedVolume;
+        return WaterDensity * Gravity * submergedVolume;
     }
 
     private void ApplyPhysics(float buoyancyForce)

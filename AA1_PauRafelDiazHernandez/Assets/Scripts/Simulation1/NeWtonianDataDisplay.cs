@@ -26,12 +26,12 @@ public class NewtonianDataDisplay : MonoBehaviour
         if (selectedBody == null) return;
 
         float velocity = selectedBody.velocity.magnitude;
-        float force = selectedBody.currentForce.magnitude;
+        float force = selectedBody.lastForce.magnitude;
         float distance = Vector3.Distance(selectedBody.transform.position, _sunPosition);
 
         bodyNameLabel.text = $"Body: {selectedBody.name}";
         velocityLabel.text = $"Velocity: {velocity:F3} UA/year";
-        forceLabel.text = $"Force: {force:F4} N";
+        forceLabel.text = $"Force: {force:E3} UA·Mo/yr2";
         distanceLabel.text = $"Distance to Sun: {distance:F3} UA";
     }
 

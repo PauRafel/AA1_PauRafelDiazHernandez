@@ -17,6 +17,9 @@ public class NewtonianUIController : MonoBehaviour
 
     private void Start()
     {
+        if (timeScaleController == null)
+            timeScaleController = FindFirstObjectByType<TimeScaleController>();
+
         timeScaleSlider.minValue = 0.1f;
         timeScaleSlider.maxValue = 10f;
         timeScaleSlider.value = 1f;
